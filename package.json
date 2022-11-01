@@ -1,0 +1,40 @@
+{
+  "name": "agender",
+  "version": "1.0.0",
+  "description": "Agender software",
+  "main": "dist/main/index.js",
+  "keywords": [],
+  "author": "Eduardo Czpla Senkiw",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./dist/main/index.js",
+    "build": "tsc -p tsconfig.json && tsc-alias",
+    "start:dev": "export NODE_ENV=development && nodemon ./src/main/index.ts",
+    "start:prod": "export NODE_ENV=production && node ./dist/main/index.js",
+    "test:unit": "export TEST_ENV=unit && vitest",
+    "test:integration": "export TEST_ENV=integration && vitest",
+    "test": "vitest",
+    "test:all": "vitest run"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "dist",
+      "node_modules"
+    ],
+    "exec": "node -r tsconfig-paths/register -r ts-node/register"
+  },
+  "devDependencies": {
+    "@types/eslint": "^8.4.9",
+    "@types/node": "^18.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "eslint": "^8.26.0",
+    "eslint-plugin-import": "^2.26.0",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1",
+    "tsc-alias": "^1.7.0",
+    "tsconfig-paths": "^4.1.0",
+    "typescript": "^4.8.4",
+    "vitest": "^0.24.5"
+  }
+}
