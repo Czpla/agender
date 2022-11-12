@@ -1,0 +1,59 @@
+name: Deploy into cloud run
+
+on:
+  pull_request:
+    branches: 
+      - production
+      - development
+      - homologation
+    
+    types:
+      - closed
+
+env:
+  IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.PROJECT_NAME }}-${{ github.base_ref }}:latest
+
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true
+    name: Setup, build and deploy to cloud run gcp
+    runs-on: ubuntu-latest
+    environment: ${{ github.base_ref }}
+    
+    steps:
+      # Git checkout
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Login to gcp
+      - name: Login to gcp
+        uses: google-github-actions/setup-gcloud@v0.2.0
+        with:
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+        
+      # Configure gcloud docker
+      - name: Configure docker
+        run: gcloud auth configure-docker --quiet
+
+      # Build image
+      - name: Build image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          tags: |
+            ${{ env.IMAGE_NAME }}
+          build-args: |
+            JSON_WEB_TOKEN_SECRET_KEY=${{ secrets.JSON_WEB_TOKEN_SECRET_KEY }} 
+            JSON_WEB_TOKEN_REFRESH_SECRET_KEY=${{ secrets.JSON_WEB_TOKEN_REFRESH_SECRET_KEY }}
+            MAIL_URL=${{ secrets.MAIL_URL }}
+
+      # Push image to registry
+      - name: Push docker image
+        run: docker push $IMAGE_NAME
+
+      # Deploy image
+      - name: Deploy docker
+        run: gcloud run deploy backend-${{ secrets.PROJECT_NAME }}-${{ github.base_ref }}
+          --image $IMAGE_NAME --region=us-central1 --memory 4Gi --min-instances 0 
+          --platform managed --port 8080 --allow-unauthenticated
