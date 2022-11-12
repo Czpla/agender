@@ -8,8 +8,6 @@ RUN npm install
 
 COPY . /usr/src/project
 
-RUN npm run lint
-
 RUN npm run build
 
 ARG JSON_WEB_TOKEN_SECRET_KEY
