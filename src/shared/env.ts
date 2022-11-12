@@ -1,14 +1,39 @@
 export class Environment {
     public static get(key: string): string;
-
-    public static get(key: string): string {
+    public static get(key: string, defaultValue?: string): string;
+    public static get(key: string, defaultValue?: number): number;
+    public static get(key: string, defaultValue?: boolean): boolean;
+    public static get(
+        key: string,
+        defaultValue?: string | number | boolean
+    ): string | number | boolean {
         const value = process.env[key];
 
         if (value === undefined) {
-            throw new Error(`key "${key}" not found`);
+            if (defaultValue !== undefined) {
+                return defaultValue;
+            }
+
+            throw new Error(`key "${key}" not found.`);
         }
 
-        return value;
+        switch (typeof defaultValue) {
+            case "boolean":
+                switch (value) {
+                    case "1":
+                    case "true":
+                    case "TRUE":
+                    case "True":
+                        return true;
+                    default:
+                        return false;
+                }
+
+            case "number":
+                return Number(value);
+            default:
+                return value;
+        }
     }
 
     public static set(key: string, value: string): void {
