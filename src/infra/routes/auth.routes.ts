@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { pingFactory } from "../http/factories/controllers/auth/auth.factory";
 import { adapterExpress } from "../http/express.adapter";
+import { SignInFactory } from "../http/factories/controllers/auth/sign-in.factory";
 
 export function authRoutes(router: Router) {
-    router.get(
-        "/ping",
-    adapterExpress(pingFactory()));
+    router.post(
+        "/auth/sign-in",
+    adapterExpress(SignInFactory()));
 }
