@@ -9,7 +9,7 @@ export type UserProps = {
     uuid?: string;
     email: Email
     password: string;
-    name: string | null;
+    name?: string | null;
 }
 
 export class User extends EntityBase<UserProps> {

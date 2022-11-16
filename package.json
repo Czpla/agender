@@ -24,10 +24,11 @@
     "exec": "node -r tsconfig-paths/register -r ts-node/register"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.12",
     "@types/eslint": "^8.4.9",
-    "@types/express": "^4.17.14",
-    "@types/lodash": "^4.14.188",
+    "@types/express": "^4.17.13",
     "@types/jsonwebtoken": "^8.5.9",
+    "@types/lodash": "^4.14.188",
     "@types/node": "^18.11.9",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
@@ -41,9 +42,11 @@
     "vitest": "^0.24.5"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "lodash": "^4.17.21",
-    "jsonwebtoken": "^8.5.1"
+    "express": "^4.18.1",
+    "helmet": "^6.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21"
   }
 }

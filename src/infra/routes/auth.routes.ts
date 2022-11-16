@@ -5,5 +5,6 @@ import { SignInFactory } from "../http/factories/controllers/auth/sign-in.factor
 export function authRoutes(router: Router) {
     router.post(
         "/auth/sign-in",
-    adapterExpress(SignInFactory()));
+        adapterExpress(SignInFactory())
+    );
 }
