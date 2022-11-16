@@ -9,7 +9,7 @@ export class GenerateCredentialsUseCase {
         input: GenerateCredentialsInputDTO
     ): GenerateCredentialsOutputDTO {
         const payload = {
-            id: input.id,
+            uuid: input.uuid,
             email: input.email,
         };
 

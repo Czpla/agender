@@ -1,7 +1,8 @@
 export type GenerateCredentialsInputDTO = {
-    id: string;
-    email?: string | null;
+    uuid?: string;
+    email: string;
 };
+
 export type GenerateCredentialsOutputDTO = {
     token: string;
     expiresIn: number;
