@@ -12,7 +12,7 @@ export class MongodbUserRepository implements IUserRepository {
         const userOrError = User.create({
             uuid: "556468e8-7143-4afb-a6d7-d2ab4e2d381b",
             email,
-            password: "550e1bafe077ff0b0b67f4e32f29d751",
+            password: "25d55ad283aa400af464c76d713c07ad",
             name: "Eduardo Czpla",
         });
 
