@@ -10,10 +10,10 @@ export class MongodbUserRepository implements IUserRepository {
 
     public async findByEmail(email: string): Promise<Either<IDomainError, User>> {
         const userOrError = User.create({
-            uuid: "995544887545",
+            uuid: "556468e8-7143-4afb-a6d7-d2ab4e2d381b",
             email,
-            password: "12345678",
-            name: "John Doe",
+            password: "550e1bafe077ff0b0b67f4e32f29d751",
+            name: "Eduardo Czpla",
         });
 
         if (userOrError.isFailed()) {
